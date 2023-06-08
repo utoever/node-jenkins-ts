@@ -74,28 +74,28 @@ export function parseName(value: string): string[] {
  */
 export class FolderPath {
   SEP: string = "/job/";
-  value: string[];
+  val: string[];
 
-  constructor(value: any) {
-    if (Array.isArray(value)) {
-      this.value = value;
-    } else if (typeof value === "string") {
-      if (value.match("^https?://")) {
-        this.value = parseName(value);
+  constructor(val: any) {
+    if (Array.isArray(val)) {
+      this.val = val;
+    } else if (typeof val === "string") {
+      if (val.match("^https?://")) {
+        this.val = parseName(val);
       } else {
-        this.value = value.split("/").filter(Boolean);
+        this.val = val.split("/").filter(Boolean);
       }
     } else {
-      this.value = [];
+      this.val = [];
     }
   }
 
   isEmpty(): boolean {
-    return !this.value.length;
+    return !this.val.length;
   }
 
   name(): string {
-    return this.value[this.value.length - 1] || "";
+    return this.val[this.val.length - 1] || "";
   }
 
   path(): RawParam {
@@ -103,13 +103,13 @@ export class FolderPath {
     // if (this.isEmpty()) return new RawParam();
 
     return new RawParam(
-      this.SEP + this.value.map(encodeURIComponent).join(this.SEP)
+      this.SEP + this.val.map(encodeURIComponent).join(this.SEP)
     );
   }
 
   parent(): FolderPath {
     return new FolderPath(
-      this.value.slice(0, Math.max(0, this.value.length - 1))
+      this.val.slice(0, Math.max(0, this.val.length - 1))
     );
   }
 
@@ -183,7 +183,7 @@ export function parse(args: any[], ...names: string[]): any {
 /**
  * Shallow clone
  */
-export function clone(src) {
+export function clone(src: any) {
   return Object.assign({}, src);
 }
 

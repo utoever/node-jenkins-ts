@@ -36,7 +36,6 @@ function exists(ctx: any, next: any) {
   }
 
   if (ctx.err) return next(ctx.err);
-
   next(false, true);
 }
 
